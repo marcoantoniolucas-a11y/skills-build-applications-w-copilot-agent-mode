@@ -38,6 +38,7 @@ app.use((request, response, next) => {
   next();
 });
 
+
 app.use(express.json());
 
 app.get('/api/health', (_request, response) => {
