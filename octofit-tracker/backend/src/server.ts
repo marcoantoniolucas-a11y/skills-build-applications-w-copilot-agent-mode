@@ -10,33 +10,33 @@ import { connectDatabase } from './config/database';
 const app = express();
 const port = Number(process.env.PORT) || 8000;
 const codespaceName = process.env.CODESPACE_NAME;
-const allowedOrigins = new Set([
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  ...(codespaceName ? [`https://${codespaceName}-5173.app.github.dev`] : []),
-]);
+// const allowedOrigins = new Set([
+//   'http://localhost:5173',
+//   'http://127.0.0.1:5173',
+//   ...(codespaceName ? [`https://${codespaceName}-5173.app.github.dev`] : []),
+// ]);
 
 export const baseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
   : 'http://localhost:8000';
 
-app.use((request, response, next) => {
-  const origin = request.get('origin');
-  response.vary('Origin');
+// app.use((request, response, next) => {
+//   const origin = request.get('origin');
+//   response.vary('Origin');
 
-  if (origin && allowedOrigins.has(origin)) {
-    response.setHeader('Access-Control-Allow-Origin', origin);
-    response.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  }
+//   if (origin && allowedOrigins.has(origin)) {
+//     response.setHeader('Access-Control-Allow-Origin', origin);
+//     response.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+//     response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   }
 
-  if (request.method === 'OPTIONS' && origin && allowedOrigins.has(origin)) {
-    response.sendStatus(204);
-    return;
-  }
+//   if (request.method === 'OPTIONS' && origin && allowedOrigins.has(origin)) {
+//     response.sendStatus(204);
+//     return;
+//   }
 
-  next();
-});
+//   next();
+// });
 
 
 app.use(express.json());
